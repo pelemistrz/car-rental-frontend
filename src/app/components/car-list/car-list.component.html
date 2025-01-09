@@ -1,1 +1,6 @@
-<p>car-list works!</p>
+
+<p>hello</p>
+
+<p *ngFor="let tempCar of cars">
+  {{tempCar.brand}}: {{tempCar.dailyFee | currency: 'PLN'}}
+</p>
