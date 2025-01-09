@@ -22,29 +22,38 @@ CREATE TABLE `cars`(
     `registration` VARCHAR(255) NOT NULL,
     `daily_penalty` DECIMAL(8, 2) NOT NULL,
     `fuel_consumption` DECIMAL(8, 2) NOT NULL,
-    `type_of_fuel` VARCHAR(255) NOT NULL
+    `type_of_fuel` VARCHAR(255) NOT NULL,
+    `car_type_id` BIGINT NOT NULL
+);
+CREATE TABLE `car_types` (
+      `id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+        `car_type` VARCHAR(255) NOT NULL
 );
 CREATE TABLE `reservations`(
     `id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `car_id` BIGINT NOT NULL,
-    `rental_date` DATE NOT NULL,
-    `return_date` DATE NOT NULL,
+    `start_date` DATE NOT NULL,
+    `end_date` DATE NOT NULL,
     `equipment_id` BIGINT NOT NULL,
     `real_return_date` DATE NOT NULL,
     `total_fee` DECIMAL(8, 2) NOT NULL,
     `penalty` DECIMAL(8, 2) NOT NULL,
-    `fuel_usage_id` BIGINT NOT NULL
+    `fuel_usage_id` BIGINT NOT NULL,
+    `mileage` INT NOT NULL,
+     `date_created` DATETIME NOT NULL,
+    `last_updated` DATETIME NOT NULL
 );
 CREATE TABLE `equipment`(
-    `id` BIGINT NOT NULL,
+    `id` BIGINT NOT NULL,  
+    `daily_fee` DECIMAL(8, 2) NOT NULL,
     `description` VARCHAR(255) NOT NULL,
     PRIMARY KEY(`id`)
 );
 CREATE TABLE `fuel_usage`(
     `id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `reservation_id` BIGINT NOT NULL,
-    `counter_reading_begin` BIGINT NOT NULL,
-    `counter_reading_end` BIGINT NOT NULL,
+    `counter_reading_begin` int NOT NULL,
+    `counter_reading_end` int NOT NULL,
     `fuel_usage` DECIMAL(8, 2) NOT NULL,
     `cost_of_fuel` DECIMAL(8, 2) NOT NULL,
     `fuel_category_id` BIGINT NOT NULL
