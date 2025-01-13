@@ -1,6 +1,22 @@
-
-<p>hello</p>
-
-<p *ngFor="let tempCar of cars">
-  {{tempCar.brand}}: {{tempCar.dailyFee | currency: 'PLN'}}
-</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>Brand</th>
+      <th>Model</th>
+      <th>Daily Fee</th>
+      <th>Fuel</th>
+      <th>Car Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let tempCar of cars">
+      <td><img src="{{tempCar.imageUrl}}" alt="" height="50px" width="50px"></td>
+      <td>{{tempCar.brand}}</td>
+      <td>{{tempCar.model}}</td>
+      <td>{{tempCar.dailyFee | currency:'PLN'}}</td>
+      <td>{{tempCar.fuelCategory.description}}</td>
+      <td>{{tempCar.carType.carType}}</td>
+    </tr>
+  </tbody>
+</table>

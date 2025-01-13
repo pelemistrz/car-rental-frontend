@@ -3,6 +3,7 @@ import { FuelCategory } from './fuel-category';
 
 export class Car {
   id: string;
+  imageUrl: string;
   brand: string;
   model: string;
   dailyFee: number;
