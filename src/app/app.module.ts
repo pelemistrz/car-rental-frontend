@@ -17,7 +17,7 @@ import { CarCategoryMenuComponent } from './components/car-category-menu/car-cat
 import { SearchComponent } from './components/search/search.component';
 import { LoginStatusComponent } from './components/login-status/login-status.component';
 import { RentalStatusComponent } from './components/rental-status/rental-status.component';
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: 'car-type/:id', component: CarListComponent },
@@ -36,7 +36,11 @@ const routes: Routes = [
     LoginStatusComponent,
     RentalStatusComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [
+    RouterModule.forRoot(routes, { useHash: false }),
+    BrowserModule,
+     AppRoutingModule
+    ],
   providers: [
     provideClientHydration(withEventReplay()),
     provideClientHydration(),

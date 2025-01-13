@@ -2,7 +2,12 @@
   <nav class="navbar-sidebar">
 
     <ul class="list-unstyled navbar-list">
+      <li *ngFor="let tempCarType of carTypes">
+        <a routerLink="/car-type/{{tempCarType.id}}" routerLinkActive="active-link">
+          {{tempCarType.carType}}
+        </a>
 
+      </li>
 
     </ul>
 
