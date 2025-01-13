@@ -1,15 +1,31 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  provideClientHydration,
+  withEventReplay,
+} from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withFetch,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { CarListComponent } from './components/car-list/car-list.component';
 
 import { CarCategoryMenuComponent } from './components/car-category-menu/car-category-menu.component';
 import { SearchComponent } from './components/search/search.component';
 import { LoginStatusComponent } from './components/login-status/login-status.component';
 import { RentalStatusComponent } from './components/rental-status/rental-status.component';
+import { Routes } from '@angular/router';
 
+const routes: Routes = [
+  { path: 'car-type/:id', component: CarListComponent },
+  { path: 'car-type', component: CarListComponent },
+  { path: 'cars', component: CarListComponent },
+  { path: '', redirectTo: '/cars', pathMatch: 'full' },
+  { path: '**', redirectTo: '/cars', pathMatch: 'full' },
+];
 
 @NgModule({
   declarations: [
@@ -18,19 +34,14 @@ import { RentalStatusComponent } from './components/rental-status/rental-status.
     CarCategoryMenuComponent,
     SearchComponent,
     LoginStatusComponent,
-    RentalStatusComponent
-  
+    RentalStatusComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, AppRoutingModule],
   providers: [
     provideClientHydration(withEventReplay()),
     provideClientHydration(),
-    provideHttpClient(withFetch(), withInterceptorsFromDi())
-
+    provideHttpClient(withFetch(), withInterceptorsFromDi()),
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

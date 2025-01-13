@@ -1,22 +1,23 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th>Image</th>
-      <th>Brand</th>
-      <th>Model</th>
-      <th>Daily Fee</th>
-      <th>Fuel</th>
-      <th>Car Type</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let tempCar of cars">
-      <td><img src="{{tempCar.imageUrl}}" alt="" height="50px" width="50px"></td>
-      <td>{{tempCar.brand}}</td>
-      <td>{{tempCar.model}}</td>
-      <td>{{tempCar.dailyFee | currency:'PLN'}}</td>
-      <td>{{tempCar.fuelCategory.description}}</td>
-      <td>{{tempCar.carType.carType}}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="main-content">
+  <div class="section-content section-content-p30">
+    <div class="container-fluid">
+      <div class="row">
+        <div *ngFor="let tempCar of cars" class="col-md-3">
+          <div class="product-box">
+            <img src="{{tempCar.imageUrl}}" alt="" class="" img-responsive>
+          </div>
+          <h1>{{tempCar.brand}}</h1>
+          <h3>{{tempCar.model}}</h3>
+          <div class="price">
+            {{tempCar.dailyFee | currency:'PLN'}}
+          </div>
+          <p>{{tempCar.carType.carType}} {{tempCar.fuelCategory.description}} </p>
+          
+          <button class="btn btn-primary btn-sm">Rent</button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
