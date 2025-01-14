@@ -13,7 +13,9 @@ import { ActivatedRoute } from '@angular/router';
 export class CarListComponent implements OnInit {
   cars: Car[] = [];
   curentTypeId: number = 1;
-  currentType: string = "";
+  currentType: string = '';
+
+  searchMode: boolean = false;
 
   constructor(private carService: CarService, private route: ActivatedRoute) {}
 
@@ -23,13 +25,34 @@ export class CarListComponent implements OnInit {
     });
   }
   listCars() {
+    this.searchMode = this.route.snapshot.paramMap.has('model');
+    if(this.searchMode){
+      this.handleSearchCars();
+    } else {
+      this.handleListCars();
+    } 
+  
+  }
+
+  handleSearchCars(){
+    const theModel: string = this.route.snapshot.paramMap.get('model')!;
+    this.carService.searchCars(theModel).subscribe(
+      data =>{
+        this.cars = data;
+      }
+    )
+
+
+  }
+
+  handleListCars(){
     const hasCarTypeId: boolean = this.route.snapshot.paramMap.has('id');
     if (hasCarTypeId) {
       this.curentTypeId = +this.route.snapshot.paramMap.get('id')!;
       this.currentType = this.route.snapshot.paramMap.get('name')!;
     } else {
       this.curentTypeId = 1;
-      this.currentType = "Sedan";
+      this.currentType = 'Sedan';
     }
 
     this.carService.getCarList(this.curentTypeId).subscribe((data) => {

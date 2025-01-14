@@ -8,23 +8,28 @@ import { CarType } from '../common/car-type';
   providedIn: 'root',
 })
 export class CarService {
-  
   private carTypeUrl = 'http://localhost:8080/car-type';
   private baseUrl = 'http://localhost:8080/cars';
 
   constructor(private httpClient: HttpClient) {}
 
   getCarList(carTypeId: number): Observable<Car[]> {
-    return this.httpClient.get<GetResponseCars>(`${this.baseUrl}/car-type/${carTypeId}`).pipe(
-      map(response=>response.content));
+    return this.httpClient
+      .get<GetResponseCars>(`${this.baseUrl}/car-type/${carTypeId}`)
+      .pipe(map((response) => response.content));
   }
 
   getCarType(): Observable<CarType[]> {
     return this.httpClient.get<CarType[]>(this.carTypeUrl);
   }
+
+  searchCars(theModel: string): Observable<Car[]> {
+    return this.httpClient
+      .get<GetResponseCars>(`${this.baseUrl}/car/${theModel}`)
+      .pipe(map((resp) => resp.content));
+  }
 }
 
 interface GetResponseCars {
-  content: Car[]
-  
+  content: Car[];
 }
