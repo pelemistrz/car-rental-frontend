@@ -3,8 +3,9 @@
 
     <ul class="list-unstyled navbar-list">
       <li *ngFor="let tempCarType of carTypes">
-        <a routerLink="/car-type/{{tempCarType.id}}" routerLinkActive="active-link">
+        <a routerLink="/car-type/{{tempCarType.id}}/{{tempCarType.carType}}" routerLinkActive="active-link">
           {{tempCarType.carType}}
+
         </a>
 
       </li>

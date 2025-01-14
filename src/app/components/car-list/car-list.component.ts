@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CarService } from '../../services/car.service';
 import { Car } from '../../common/car';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-car-list',
@@ -11,14 +12,27 @@ import { Car } from '../../common/car';
 })
 export class CarListComponent implements OnInit {
   cars: Car[] = [];
+  curentTypeId: number = 1;
+  currentType: string = "";
 
-  constructor(private carService: CarService) {}
+  constructor(private carService: CarService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.listCars();
+    this.route.paramMap.subscribe(() => {
+      this.listCars();
+    });
   }
   listCars() {
-    this.carService.getCarsList().subscribe((data) => {
+    const hasCarTypeId: boolean = this.route.snapshot.paramMap.has('id');
+    if (hasCarTypeId) {
+      this.curentTypeId = +this.route.snapshot.paramMap.get('id')!;
+      this.currentType = this.route.snapshot.paramMap.get('name')!;
+    } else {
+      this.curentTypeId = 1;
+      this.currentType = "Sedan";
+    }
+
+    this.carService.getCarList(this.curentTypeId).subscribe((data) => {
       this.cars = data;
     });
   }

@@ -20,7 +20,8 @@ import { RentalStatusComponent } from './components/rental-status/rental-status.
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: 'car-type/:id', component: CarListComponent },
+  {path: 'search/:model',component: CarListComponent},
+  { path: 'car-type/:id/:name', component: CarListComponent },
   { path: 'car-type', component: CarListComponent },
   { path: 'cars', component: CarListComponent },
   { path: '', redirectTo: '/cars', pathMatch: 'full' },
