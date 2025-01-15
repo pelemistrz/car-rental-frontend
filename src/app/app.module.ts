@@ -18,9 +18,11 @@ import { SearchComponent } from './components/search/search.component';
 import { LoginStatusComponent } from './components/login-status/login-status.component';
 import { RentalStatusComponent } from './components/rental-status/rental-status.component';
 import { RouterModule, Routes } from '@angular/router';
+import { CarDetailsComponent } from './components/car-details/car-details.component';
 
 const routes: Routes = [
-  {path: 'search/:model',component: CarListComponent},
+  { path: 'cars/:id', component: CarDetailsComponent },
+  { path: 'search/:model', component: CarListComponent },
   { path: 'car-type/:id/:name', component: CarListComponent },
   { path: 'car-type', component: CarListComponent },
   { path: 'cars', component: CarListComponent },
@@ -36,12 +38,13 @@ const routes: Routes = [
     SearchComponent,
     LoginStatusComponent,
     RentalStatusComponent,
+    CarDetailsComponent
   ],
   imports: [
     RouterModule.forRoot(routes, { useHash: false }),
     BrowserModule,
-     AppRoutingModule
-    ],
+    AppRoutingModule,
+  ],
   providers: [
     provideClientHydration(withEventReplay()),
     provideClientHydration(),

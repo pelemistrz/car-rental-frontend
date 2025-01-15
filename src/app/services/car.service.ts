@@ -28,6 +28,10 @@ export class CarService {
       .get<GetResponseCars>(`${this.baseUrl}/car/${theModel}`)
       .pipe(map((resp) => resp.content));
   }
+
+  getCar(theCarId: number) {
+    return this.httpClient.get<Car>(`${this.baseUrl}/${theCarId}`);
+  }
 }
 
 interface GetResponseCars {
