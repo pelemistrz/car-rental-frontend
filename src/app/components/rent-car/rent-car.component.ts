@@ -1,19 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Car } from '../../common/car';
 import { CarService } from '../../services/car.service';
+import { Car } from '../../common/car';
 
 @Component({
-  selector: 'app-car-details',
+  selector: 'app-rent-car',
   standalone: false,
 
-  templateUrl: './car-details.component.html',
-  styleUrl: './car-details.component.css',
+  templateUrl: './rent-car.component.html',
+  styleUrl: './rent-car.component.css',
 })
-export class CarDetailsComponent implements OnInit {
+export class RentCarComponent {
   car: Car = new Car();
-  backUrl:string = "";
-  isLoaded:boolean = false;
+  isLoaded: boolean = false;
 
   constructor(private route: ActivatedRoute, private carService: CarService) {}
 
@@ -25,6 +24,7 @@ export class CarDetailsComponent implements OnInit {
 
   handleCarDetails() {
     const theCarId: number = +this.route.snapshot.paramMap.get('id')!;
+
     this.carService.getCar(theCarId).subscribe((data) => {
       this.car = data;
       this.isLoaded = true;

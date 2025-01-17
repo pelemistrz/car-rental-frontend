@@ -11,16 +11,20 @@ import {
   withFetch,
   withInterceptorsFromDi,
 } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { CarListComponent } from './components/car-list/car-list.component';
 
 import { CarCategoryMenuComponent } from './components/car-category-menu/car-category-menu.component';
 import { SearchComponent } from './components/search/search.component';
 import { LoginStatusComponent } from './components/login-status/login-status.component';
-import { RentalStatusComponent } from './components/rental-status/rental-status.component';
+
 import { RouterModule, Routes } from '@angular/router';
 import { CarDetailsComponent } from './components/car-details/car-details.component';
+import { RentCarComponent } from './components/rent-car/rent-car.component';
 
 const routes: Routes = [
+  { path: 'rent/:id', component: RentCarComponent },
   { path: 'cars/:id', component: CarDetailsComponent },
   { path: 'search/:model', component: CarListComponent },
   { path: 'car-type/:id/:name', component: CarListComponent },
@@ -37,12 +41,14 @@ const routes: Routes = [
     CarCategoryMenuComponent,
     SearchComponent,
     LoginStatusComponent,
-    RentalStatusComponent,
-    CarDetailsComponent
+ 
+    CarDetailsComponent,
+    RentCarComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, { useHash: false }),
     BrowserModule,
+    ReactiveFormsModule,
     AppRoutingModule,
   ],
   providers: [

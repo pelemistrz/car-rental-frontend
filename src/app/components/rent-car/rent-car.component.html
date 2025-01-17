@@ -1,0 +1,32 @@
+<div *ngIf="isLoaded" class="main-content page-m">
+  <div class="section-content section-content-p30">
+    <div class="conatiner-fluid">
+
+      <h3>{{car.brand}} {{car.model}}</h3>
+      <div class="price">{{car.dailyFee | currency:'PLN'}}</div>
+
+      <hr>
+      <h4>Description</h4>
+      <p>{{car.fuelCategory.description}}</p>
+
+      <h1>Reserve car:</h1>
+      Reception date and hour:
+
+      Return date and hour:
+
+
+      Customer
+
+      credit card information
+
+
+      Review your reservation
+
+
+      <button class="btn btn-primary">Reserve</button>
+
+
+
+    </div>
+  </div>
+</div>
