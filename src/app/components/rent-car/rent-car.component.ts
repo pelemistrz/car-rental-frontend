@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { RentValidators } from '../../validators/rent-validator';
 import { RentService } from '../../services/rent.service';
+import { Rent } from '../../common/rent';
 
 @Component({
   selector: 'app-rent-car',
@@ -21,6 +22,7 @@ import { RentService } from '../../services/rent.service';
 export class RentCarComponent {
   car: Car = new Car();
   isLoaded: boolean = false;
+  isDisabled: boolean = false;
 
   rentFormGroup: FormGroup;
 
@@ -52,7 +54,7 @@ export class RentCarComponent {
       }),
 
       customer: this.formBuilder.group({
-        firstName: new FormControl('Marcin', [
+        firstName: new FormControl('', [
           Validators.required,
           Validators.minLength(2),
           RentValidators.notOnlyWhitespace,
@@ -66,7 +68,9 @@ export class RentCarComponent {
           Validators.required,
           Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
         ]),
-        country: new FormControl(''),
+        country: new FormControl('',[
+          Validators.required
+        ]),
       }),
     });
   }
@@ -81,12 +85,36 @@ export class RentCarComponent {
   }
 
   onSubmit() {
-    
-    if(this.rentFormGroup.invalid){
+    this.isDisabled = true;
+
+    if (this.rentFormGroup.invalid) {
       this.rentFormGroup.markAllAsTouched();
       return;
     }
 
+    let rent = new Rent();
+    rent.customer = this.rentFormGroup.controls['customer'].value;
+  
+    rent.car = this.car;
+ 
+
+
+    rent.receptionDate = this.rentFormGroup.controls['reservation'].value.receptionDate;
+   
+    rent.returnDate = this.rentFormGroup.controls['reservation'].value.returnDate;
+   
+
+    this.rentService.rentCar(rent).subscribe({
+      next: (response) => {
+        alert(
+          `Your car has been reserved. Your reservation number: ${response.reservationId}`
+        );
+        this.router.navigateByUrl('/cars');
+      },
+      error: (err) => {
+        alert(`There was an error: ${err.message}`);
+      },
+    });
   }
 
   // gettery

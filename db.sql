@@ -14,8 +14,7 @@ DROP TABLE IF exists `customers`;
 
 CREATE TABLE `customers`(
     `id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `country` VARCHAR(255) NOT NULL,
-    `city` VARCHAR(255) NOT NULL,
+    `country` VARCHAR(255) NOT NULL,   
     `email` VARCHAR(255) NOT NULL,
     `first_name` VARCHAR(255) NOT NULL,
     `last_name` VARCHAR(255) NOT NULL
@@ -45,10 +44,10 @@ CREATE TABLE `reservations`(
     `start_date` DATE NOT NULL,
     `end_date` DATE NOT NULL, 
     `total_fee` DECIMAL(8, 2) NOT NULL,
-    `penalty` DECIMAL(8, 2) NOT NULL,
-    `fuel_usage_id` BIGINT NOT NULL,
+    
+    `fuel_usage_id` BIGINT ,
      `date_created` DATETIME NOT NULL,
-    `last_updated` DATETIME NOT NULL,
+    `last_updated` DATETIME ,
      `customer_id` BIGINT NOT NULL
 );
 
