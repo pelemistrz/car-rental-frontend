@@ -42,8 +42,8 @@ CREATE TABLE `car_types` (
 CREATE TABLE `reservations`(
     `id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `car_id` BIGINT NOT NULL,
-    `start_date` DATETIME NOT NULL,
-    `end_date` DATETIME NOT NULL, 
+    `start_date` DATE NOT NULL,
+    `end_date` DATE NOT NULL, 
     `total_fee` DECIMAL(8, 2) NOT NULL,
     `penalty` DECIMAL(8, 2) NOT NULL,
     `fuel_usage_id` BIGINT NOT NULL,
