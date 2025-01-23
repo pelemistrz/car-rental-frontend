@@ -22,8 +22,24 @@ import { LoginStatusComponent } from './components/login-status/login-status.com
 import { RouterModule, Routes } from '@angular/router';
 import { CarDetailsComponent } from './components/car-details/car-details.component';
 import { RentCarComponent } from './components/rent-car/rent-car.component';
+import { LoginComponent } from './components/login/login.component';
+// okta
+import {
+  OktaAuthModule,
+  OktaCallbackComponent,
+  OKTA_CONFIG,
+  OktaAuthGuard,
+} from '@okta/okta-angular';
+import { OktaAuth } from '@okta/okta-auth-js';
+import myAppConfig from './config/my-app-config';
+import { MembersPageComponent } from './components/members-page/members-page.component';
+
+const oktaConfig = myAppConfig.oidc;
+const oktaAuth = new OktaAuth(oktaConfig);
 
 const routes: Routes = [
+  { path: 'login/callback', component: OktaCallbackComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'rent/:id', component: RentCarComponent },
   { path: 'cars/:id', component: CarDetailsComponent },
   { path: 'search/:model', component: CarListComponent },
@@ -41,17 +57,21 @@ const routes: Routes = [
     CarCategoryMenuComponent,
     SearchComponent,
     LoginStatusComponent,
- 
     CarDetailsComponent,
     RentCarComponent,
+    LoginComponent,
+    MembersPageComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, { useHash: false }),
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    OktaAuthModule,
   ],
   providers: [
+    { provide: OKTA_CONFIG, useValue: { oktaAuth } },
+ 
     provideClientHydration(withEventReplay()),
     provideClientHydration(),
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
