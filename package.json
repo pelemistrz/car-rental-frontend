@@ -2,8 +2,7 @@
   "name": "angular-car-rental",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    
+    "ng": "ng",    
     "start": "ng serve --ssl=true --ssl-key=./ssl-localhost/localhost.key --ssl-cert=./ssl-localhost/localhost.crt",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",

@@ -6,7 +6,6 @@ USE `car-rental` ;
 
 DROP TABLE IF exists `cars`;
 DROP TABLE IF exists `reservations`;
-DROP TABLE IF exists `equipment`;
 DROP TABLE IF exists `fuel_usage`;
 DROP TABLE IF exists `fuel_category`;
 DROP TABLE IF exists `customers`;
