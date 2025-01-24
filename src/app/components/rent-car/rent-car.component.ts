@@ -23,6 +23,7 @@ export class RentCarComponent {
   car: Car = new Car();
   isLoaded: boolean = false;
   isDisabled: boolean = false;
+  storage: Storage = sessionStorage;
 
   rentFormGroup: FormGroup;
 
@@ -39,11 +40,12 @@ export class RentCarComponent {
       this.handleCarDetails();
     });
 
-    const formattedDate = this.getFormattedDate();
+    const formattedTodayDate = this.getTodayDate();
+    const theEmail = JSON.parse(this.storage.getItem('userEmail')!);
 
     this.rentFormGroup = this.formBuilder.group({
       reservation: this.formBuilder.group({
-        receptionDate: new FormControl(formattedDate, [
+        receptionDate: new FormControl(formattedTodayDate, [
           Validators.required,
           RentValidators.dateAfterNow,
         ]),
@@ -64,13 +66,11 @@ export class RentCarComponent {
           Validators.minLength(2),
           RentValidators.notOnlyWhitespace,
         ]),
-        email: new FormControl('', [
+        email: new FormControl(theEmail, [
           Validators.required,
           Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
         ]),
-        country: new FormControl('',[
-          Validators.required
-        ]),
+        country: new FormControl('', [Validators.required]),
       }),
     });
   }
@@ -94,15 +94,14 @@ export class RentCarComponent {
 
     let rent = new Rent();
     rent.customer = this.rentFormGroup.controls['customer'].value;
-  
+
     rent.car = this.car;
- 
 
+    rent.receptionDate =
+      this.rentFormGroup.controls['reservation'].value.receptionDate;
 
-    rent.receptionDate = this.rentFormGroup.controls['reservation'].value.receptionDate;
-   
-    rent.returnDate = this.rentFormGroup.controls['reservation'].value.returnDate;
-   
+    rent.returnDate =
+      this.rentFormGroup.controls['reservation'].value.returnDate;
 
     this.rentService.rentCar(rent).subscribe({
       next: (response) => {
@@ -137,11 +136,11 @@ export class RentCarComponent {
     return this.rentFormGroup.get('reservation.returnDate');
   }
 
-  getFormattedDate(): string {
+  getTodayDate(): string {
     const today = new Date();
     const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
     const dd = String(today.getDate()).padStart(2, '0');
     const yyyy = today.getFullYear();
-    return `${mm}/${dd}/${yyyy}`;
+    return `${yyyy}-${mm}-${dd}`;
   }
 }

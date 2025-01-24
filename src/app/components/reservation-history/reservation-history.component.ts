@@ -25,5 +25,6 @@ export class ReservationHistoryComponent implements OnInit {
       .subscribe((data) => {
         this.reservationHistoryList = data;
       });
+    console.log(this.reservationHistoryList);
   }
 }

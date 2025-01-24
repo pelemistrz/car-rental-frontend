@@ -12,7 +12,7 @@ export class ReservationHistoryService {
   constructor(private httpClient: HttpClient) {}
 
   getReservationsHistory(theEmail: string): Observable<ReservationHistory[]> {
-    const reservationsHistoryUrl = `${this.reservationUrl}?email${theEmail}`;
+    const reservationsHistoryUrl = `${this.reservationUrl}?email=${theEmail}`;
     return this.httpClient.get<ReservationHistory[]>(reservationsHistoryUrl);
   }
 }
