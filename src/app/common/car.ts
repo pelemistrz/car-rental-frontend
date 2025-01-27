@@ -1,5 +1,5 @@
 import { CarType } from './car-type';
-import { FuelCategory } from './fuel-category';
+
 
 export class Car {
   id: string;
@@ -7,10 +7,10 @@ export class Car {
   brand: string;
   model: string;
   dailyFee: number;
+  yearOfProduction:number;
   registration: string;
-  dailyPenalty: number;
-  date_created: Date;
-  last_updated: Date;
-  fuelCategory: FuelCategory;
+   date_created: Date;
+  last_updated: Date; 
   carType: CarType;
+  description: string;
 }

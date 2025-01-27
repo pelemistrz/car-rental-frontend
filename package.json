@@ -2,7 +2,7 @@
   "name": "angular-car-rental",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",    
+    "ng": "ng",
     "start": "ng serve --ssl=true --ssl-key=./ssl-localhost/localhost.key --ssl-cert=./ssl-localhost/localhost.crt",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
@@ -25,9 +25,11 @@
     "@okta/okta-angular": "^6.4.0",
     "@okta/okta-auth-js": "^7.10.1",
     "@okta/okta-signin-widget": "^7.27.3",
+    "@stripe/stripe-js": "^5.5.0",
     "bootstrap": "^5.3.3",
     "express": "^4.18.2",
     "rxjs": "~7.8.0",
+    "stripe": "^17.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
   },

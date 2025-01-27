@@ -6,24 +6,23 @@
 
     <div class="container-fluid">
       <div class="row">
-        <div *ngFor="let tempCar of cars" class="col-md-3">
+        <div *ngFor="let tempCar of cars" class="col-md-3 mt-3">
           <div class="product-box">
-
             <a routerLink="/cars/{{tempCar.id}}"> <img src="{{tempCar.imageUrl}}" alt="" class="" img-responsive></a>
-
           </div>
-          <a routerLink="/cars/{{tempCar.id}}">
-            <h1>{{tempCar.brand}}</h1>
-          </a>
-
-          <a routerLink="/cars/{{tempCar.id}}">
-            <h3>{{tempCar.model}}</h3>
-          </a>
+          <div>
+            <a routerLink="/cars/{{tempCar.id}}">
+              <h1>{{tempCar.brand}} </h1>
+            </a>
+            <a routerLink="/cars/{{tempCar.id}}">
+              <h3>&nbsp; {{tempCar.model}}</h3>
+            </a>
+          </div>
 
           <div class="price">
-            {{tempCar.dailyFee | currency:'PLN'}}
+            {{tempCar.dailyFee | currency:'PLN'}} per day
           </div>
-          <p>{{tempCar.carType.carType}} {{tempCar.fuelCategory.description}} </p>
+
 
           <button routerLink="/cars/{{tempCar.id}}" class="btn btn-primary btn-sm">More details</button>
         </div>
