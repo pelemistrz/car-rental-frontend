@@ -1,13 +1,9 @@
-
 DROP SCHEMA IF EXISTS `car-rental`;
+
 
 CREATE SCHEMA `car-rental`;
 USE `car-rental` ;
 
-DROP TABLE IF exists `cars`;
-DROP TABLE IF exists `reservations`;
-DROP TABLE IF exists `car_types`;
-DROP TABLE IF exists `customers`;
 
 
 CREATE TABLE `customers`(
