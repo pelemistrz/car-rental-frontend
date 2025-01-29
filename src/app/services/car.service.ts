@@ -15,6 +15,12 @@ export class CarService {
   constructor(private httpClient: HttpClient) {}
 
   getCarList(carTypeId: number): Observable<Car[]> {
+    if (carTypeId === 0) {
+      return this.httpClient
+        .get<Car[]>(`${this.baseUrl}`)
+        .pipe(map((response) => response));
+    }
+
     return this.httpClient
       .get<GetResponseCars>(`${this.baseUrl}/car-type/${carTypeId}`)
       .pipe(map((response) => response.content));
@@ -26,12 +32,16 @@ export class CarService {
 
   searchCars(theModel: string): Observable<Car[]> {
     return this.httpClient
-      .get<GetResponseCars>(`${this.baseUrl}/car/${theModel}`)
+      .get<GetResponseCars>(`${this.baseUrl}/${theModel}`)
       .pipe(map((resp) => resp.content));
   }
 
   getCar(theCarId: number) {
-    return this.httpClient.get<Car>(`${this.baseUrl}/${theCarId}`);
+    return this.httpClient.get<Car>(`${this.baseUrl}/car/${theCarId}`);
+  }
+
+  addCar(car: Car): Observable<any> {
+    return this.httpClient.post<Car>(this.baseUrl, car);
   }
 }
 

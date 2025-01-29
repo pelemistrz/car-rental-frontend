@@ -3,7 +3,6 @@
     <h4>Car type: {{currentType}}</h4>
     <hr>
 
-
     <div class="container-fluid">
       <div class="row">
         <div *ngFor="let tempCar of cars" class="col-md-3 mt-3">
@@ -12,7 +11,7 @@
           </div>
           <div>
             <a routerLink="/cars/{{tempCar.id}}">
-              <h1>{{tempCar.brand}} </h1>
+              <h2>{{tempCar.brand}} </h2>
             </a>
             <a routerLink="/cars/{{tempCar.id}}">
               <h3>&nbsp; {{tempCar.model}}</h3>

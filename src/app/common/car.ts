@@ -11,6 +11,8 @@ export class Car {
   registration: string;
    date_created: Date;
   last_updated: Date; 
+
   carType: CarType;
+  
   description: string;
 }

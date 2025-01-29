@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CarService } from '../../services/car.service';
 import { Car } from '../../common/car';
@@ -21,7 +21,7 @@ import { PaymentInfo } from '../../common/payment-info';
   templateUrl: './rent-car.component.html',
   styleUrl: './rent-car.component.css',
 })
-export class RentCarComponent {
+export class RentCarComponent implements OnInit {
   car: Car = new Car();
 
   isDisabled: boolean = false;

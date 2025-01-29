@@ -36,6 +36,7 @@ import myAppConfig from './config/my-app-config';
 import { MembersPageComponent } from './components/members-page/members-page.component';
 import { ReservationHistoryComponent } from './components/reservation-history/reservation-history.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { AddCarComponent } from './components/add-car/add-car.component';
 
 const oktaConfig = myAppConfig.oidc;
 const oktaAuth = new OktaAuth(oktaConfig);
@@ -59,6 +60,7 @@ const routes: Routes = [
     data: { onAuthRequired: sendToLoginPage },
   },
   { path: 'login/callback', component: OktaCallbackComponent },
+  { path: 'add-car', component: AddCarComponent },
   { path: 'login', component: LoginComponent },
   { path: 'rent/:id', component: RentCarComponent },
   { path: 'cars/:id', component: CarDetailsComponent },
@@ -82,6 +84,7 @@ const routes: Routes = [
     LoginComponent,
     MembersPageComponent,
     ReservationHistoryComponent,
+    AddCarComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, { useHash: false }),
@@ -92,7 +95,11 @@ const routes: Routes = [
   ],
   providers: [
     { provide: OKTA_CONFIG, useValue: { oktaAuth } },
-    {provide: HTTP_INTERCEPTORS,useClass: AuthInterceptorService, multi:true},
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
 
     provideClientHydration(withEventReplay()),
     provideClientHydration(),

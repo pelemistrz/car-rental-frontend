@@ -565,11 +565,6 @@ input.au-input.au-input-xl {
   margin-bottom: 10px
 }
 
-.price {
-  margin: 5px 0 0;
-  font-weight: 800;
-  color: #0da8e4
-}
 
 .product-box h1 {
   font-size: 18px;
@@ -764,7 +759,7 @@ table.table.table-bordered th {
 */
 
 .price {
-  margin: 15px 0 0;
+  margin: 5px 0 0;
   font-weight: 800;
   color: #0da8e4
 }

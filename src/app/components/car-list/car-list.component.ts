@@ -26,33 +26,28 @@ export class CarListComponent implements OnInit {
   }
   listCars() {
     this.searchMode = this.route.snapshot.paramMap.has('model');
-    if(this.searchMode){
+    if (this.searchMode) {
       this.handleSearchCars();
     } else {
       this.handleListCars();
-    } 
-  
+    }
   }
 
-  handleSearchCars(){
+  handleSearchCars() {
     const theModel: string = this.route.snapshot.paramMap.get('model')!;
-    this.carService.searchCars(theModel).subscribe(
-      data =>{
-        this.cars = data;
-      }
-    )
-
-
+    this.carService.searchCars(theModel).subscribe((data) => {
+      this.cars = data;
+    });
   }
 
-  handleListCars(){
+  handleListCars() {
     const hasCarTypeId: boolean = this.route.snapshot.paramMap.has('id');
     if (hasCarTypeId) {
       this.curentTypeId = +this.route.snapshot.paramMap.get('id')!;
       this.currentType = this.route.snapshot.paramMap.get('name')!;
     } else {
-      this.curentTypeId = 1;
-      this.currentType = 'Sedan';
+      this.curentTypeId = 0;
+      this.currentType = 'All';
     }
 
     this.carService.getCarList(this.curentTypeId).subscribe((data) => {

@@ -21,7 +21,7 @@ CREATE TABLE `cars`(
     `year_of_production` BIGINT NOT NULL,
     `daily_fee` DECIMAL(8, 2) NOT NULL,
     `date_created` DATETIME NOT NULL,
-    `last_updated` DATETIME NOT NULL,
+    `last_updated` DATETIME NULL,
     `registration` VARCHAR(255) NOT NULL,
     `image_url` VARCHAR(255) NOT NULL,
       `car_type_id` BIGINT NOT NULL
