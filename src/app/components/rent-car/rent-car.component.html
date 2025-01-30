@@ -1,17 +1,11 @@
 <div class="main-content page-m">
   <div class="section-content section-content-p30">
     <div class="conatiner-fluid">
-
-      <h3>{{car.brand}} {{car.model}}</h3>
-      <div class="price">{{car.dailyFee | currency:'PLN'}}</div>
-
+      <h2 class="mb-2">Reserve car:</h2>
       <hr>
-      <h4>Description</h4>
-      <p></p>
-
-
-      <h1>Reserve car:</h1>
-
+      <h3>{{car.brand}} {{car.model}}</h3>
+      <div class="price">{{car.dailyFee | currency:'PLN'}} PER DAY </div>
+      <hr>
       <br>
 
       <form [formGroup]="rentFormGroup" (ngSubmit)="onSubmit()">
@@ -56,8 +50,6 @@
               </div>
             </div>
           </div>
-
-
         </div>
 
         <!-- Customer -->
@@ -166,6 +158,12 @@
         <!-- rent details -->
         <div class="form-area">
           <h3>Review Your Reservation </h3>
+          <p>You rent {{car.brand}} {{car.model}} for {{getNumberOfDays(receptionDate?.value,returnDate?.value)}}
+            day{{ getNumberOfDays(receptionDate?.value,returnDate?.value) !== 1 ? 's' : '' }} </p>
+            <p>Your total cost is: {{car.dailyFee* getNumberOfDays(receptionDate?.value,returnDate?.value) | currency:'PLN'}}</p>
+
+
+
 
 
         </div>

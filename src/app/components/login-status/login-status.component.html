@@ -1,15 +1,13 @@
 <div class="login-status-header">
   <div *ngIf="isAuthenticated && userFullName" class="login-status-user-info">
-    Welcome back {{userFullName}}
+    Welcome {{userFullName}}
   </div>
-  <button *ngIf="!isAuthenticated" routerLink="/login" class="security-btn">Login</button>
+
+  <button *ngIf="!isAuthenticated" routerLink="/login" class="security-btn p-2">Login</button>
+
+  <button *ngIf="isAuthenticated" routerLink="/rent-history" class="security-btn p-2">Reservations history</button>
+
   <button *ngIf="isAuthenticated" (click)="logout()" class="security-btn">Logout</button>
-
-  <button routerLink="/add-car" class="security-btn pl-2 ml-2">Add car</button>
-
-  <button routerLink="/members" class="security-btn pl-2 ml-2">Member</button>
-  <button routerLink="/rent-history" class="security-btn p-2">Reservations history</button>
-
 
 
 </div>

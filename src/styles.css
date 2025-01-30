@@ -125,7 +125,7 @@ aside.menu-sidebar.d-none.d-lg-block.clr {
   background: 0 0;
   z-index: 99999999;
   height: 75px;
-  box-shadow: -2px 0 4px #0000003b
+
 }
 
 /* 
@@ -135,10 +135,8 @@ aside.menu-sidebar.d-none.d-lg-block.clr {
 */
 
 .header-desktop {
-  background: #0da8e4;
-  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .1);
-  -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .1);
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .1);
+  background: #169b11;
+
   position: fixed;
   top: 0;
   right: 0;
@@ -284,11 +282,11 @@ input.au-input.au-input-xl {
   right: 0;
   min-width: 95px;
   color: #fff;
-  border: 1px solid #205b8d;
+  border: 1px solid #002B5B;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 43px;
-  background: #205b8d
+  background: #002B5B
 }
 
 .au-btn-submit:hover {
@@ -338,9 +336,7 @@ input.au-input.au-input-xl {
   -moz-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .1);
-  -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .1);
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .1);
+
   border-right: 1px solid #e5e5e5;
   position: relative;
   z-index: 3
@@ -969,9 +965,7 @@ footer ul li {
     top: 0;
     right: -300px;
     left: auto;
-    -webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
-    -moz-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
-    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1)
+
   }
 
   .header-desktop2 {

@@ -30,6 +30,7 @@ export class RentCarComponent implements OnInit {
   cardElement: any;
   displayError: any = '';
   stripe = Stripe(environment.stripePublishableKey);
+  numberOfDays: number;
 
   rentFormGroup: FormGroup;
 
@@ -57,7 +58,7 @@ export class RentCarComponent implements OnInit {
           Validators.required,
           RentValidators.dateAfterNow,
         ]),
-        returnDate: new FormControl('', [
+        returnDate: new FormControl(formattedTodayDate, [
           Validators.required,
           RentValidators.dateAfterReception,
         ]),
@@ -132,12 +133,7 @@ export class RentCarComponent implements OnInit {
 
     console.log(rent.returnDate);
 
-    const date1 = new Date(rent.receptionDate);
-    const date2 = new Date(rent.returnDate);
-
-    const diffTime = Math.abs(date1.getTime() - date2.getTime());
-    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))+1;
-    console.log(diffDays);
+    const diffDays = this.getNumberOfDays(rent.receptionDate, rent.returnDate);
 
     this.paymentInfo.amount = diffDays * this.car.dailyFee * 100;
     this.paymentInfo.currency = 'PLN';
@@ -207,5 +203,13 @@ export class RentCarComponent implements OnInit {
     const dd = String(today.getDate()).padStart(2, '0');
     const yyyy = today.getFullYear();
     return `${yyyy}-${mm}-${dd}`;
+  }
+
+  getNumberOfDays(receptionDate: Date, returnDate: Date): number {
+    const date1 = new Date(receptionDate);
+    const date2 = new Date(returnDate);
+
+    const diffTime = Math.abs(date1.getTime() - date2.getTime());
+    return Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
   }
 }
