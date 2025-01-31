@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { OKTA_AUTH, OktaAuthStateService } from '@okta/okta-angular';
-import { OktaAuth } from '@okta/okta-auth-js';
+
+import { KeycloakService } from '../../services/keycloak/keycloak.service';
 
 @Component({
   selector: 'app-login-status',
@@ -15,30 +15,29 @@ export class LoginStatusComponent implements OnInit {
   storage: Storage = sessionStorage;
 
   constructor(
-    private oktaAuthService: OktaAuthStateService,
-    @Inject(OKTA_AUTH) private oktaAuth: OktaAuth
+   private keycloakService: KeycloakService
   ) {}
 
   ngOnInit(): void {
-    this.oktaAuthService.authState$.subscribe((result) => {
-      this.isAuthenticated = result.isAuthenticated!;
-      this.getUserDetails();
-    });
-  }
 
-  getUserDetails() {
-    if (this.isAuthenticated) {
-   
-      this.oktaAuth.getUser().then((res) => {
-        this.userFullName = res.name as string;
-        const theEmail = res.email as string;
-        this.storage.setItem('userEmail', JSON.stringify(theEmail));
-      });
+      // await this.getUserDetails();
     }
-  }
+  
 
-  logout() {
+  // async getUserDetails() {
+  //   if (this.isAuthenticated) {
+   
+      
+  //     this.keycloakService.getUserDetails().then((res) => {
+  //       this.userFullName = res.firstName as string;
+  //       const theEmail = res.email as string;
+  //       this.storage.setItem('userEmail', JSON.stringify(theEmail));
+  //     });
+  //   }
+  // }
+
+  async logout() {
     // Terminates the session with Okta and removes current tokens.
-    this.oktaAuth.signOut();
+    this.keycloakService.logout();
   }
 }

@@ -1,4 +1,4 @@
-import { Injector, NgModule } from '@angular/core';
+import { APP_INITIALIZER, Injector, NgModule } from '@angular/core';
 import {
   BrowserModule,
   provideClientHydration,
@@ -36,7 +36,7 @@ import myAppConfig from './config/my-app-config';
 import { MembersPageComponent } from './components/members-page/members-page.component';
 import { ReservationHistoryComponent } from './components/reservation-history/reservation-history.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
-
+import { KeycloakService } from './services/keycloak/keycloak.service';
 
 const oktaConfig = myAppConfig.oidc;
 const oktaAuth = new OktaAuth(oktaConfig);
@@ -72,6 +72,10 @@ const routes: Routes = [
   { path: '**', redirectTo: '/cars', pathMatch: 'full' },
 ];
 
+export function kcFactory(kcService: KeycloakService) {
+  return () => kcService.init();
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -97,6 +101,12 @@ const routes: Routes = [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
+      multi: true,
+    },
+    {
+      provide: APP_INITIALIZER,
+      deps: [KeycloakService],
+      useFactory: kcFactory,
       multi: true,
     },
 
