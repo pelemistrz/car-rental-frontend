@@ -3,9 +3,13 @@
     Welcome {{userFullName}}
   </div>
 
-  <button *ngIf="!isAuthenticated" routerLink="/login" class="security-btn p-2">Login</button>
+  <button *ngIf="!isAuthenticated" (click)="login()" class="security-btn p-2">Login</button>
 
-  <button *ngIf="isAuthenticated" routerLink="/rent-history" class="security-btn p-2">Reservations history</button>
+  <button *ngIf="isAuthenticated" (click)="logout()" class="security-btn p-2">Reservations history</button>
+
+  <button *ngIf="isAuthenticated" (click)="accountManagment()" class="security-btn p-2">Account managment</button>
+
+
 
   <button *ngIf="isAuthenticated" (click)="logout()" class="security-btn">Logout</button>
 

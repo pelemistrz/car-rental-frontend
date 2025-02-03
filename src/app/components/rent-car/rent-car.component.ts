@@ -198,13 +198,8 @@ export class RentCarComponent implements OnInit {
   }
 
   getTodayDate(): string {
-    const today = new Date();
-    const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-    const dd = String(today.getDate()).padStart(2, '0');
-    const yyyy = today.getFullYear();
-    return `${yyyy}-${mm}-${dd}`;
+    return new Date().toISOString().split('T')[0];
   }
-
   getNumberOfDays(receptionDate: Date, returnDate: Date): number {
     const date1 = new Date(receptionDate);
     const date2 = new Date(returnDate);

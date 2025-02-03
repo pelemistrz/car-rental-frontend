@@ -23,7 +23,7 @@ import { LoginStatusComponent } from './components/login-status/login-status.com
 import { Router, RouterModule, Routes } from '@angular/router';
 import { CarDetailsComponent } from './components/car-details/car-details.component';
 import { RentCarComponent } from './components/rent-car/rent-car.component';
-import { LoginComponent } from './components/login/login.component';
+
 // okta
 import {
   OktaAuthModule,
@@ -59,9 +59,9 @@ const routes: Routes = [
     canActivate: [OktaAuthGuard],
     data: { onAuthRequired: sendToLoginPage },
   },
-  { path: 'login/callback', component: OktaCallbackComponent },
 
-  { path: 'login', component: LoginComponent },
+
+
   { path: 'rent/:id', component: RentCarComponent },
   { path: 'cars/:id', component: CarDetailsComponent },
   { path: 'search/:model', component: CarListComponent },
@@ -84,8 +84,7 @@ export function kcFactory(kcService: KeycloakService) {
     SearchComponent,
     LoginStatusComponent,
     CarDetailsComponent,
-    RentCarComponent,
-    LoginComponent,
+    RentCarComponent,   
     MembersPageComponent,
     ReservationHistoryComponent,
   ],

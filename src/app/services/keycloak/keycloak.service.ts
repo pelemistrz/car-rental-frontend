@@ -7,7 +7,8 @@ import { UserProfile } from './user-profile';
 })
 export class KeycloakService {
   private _keycloak: Keycloak | undefined;
-  private _profile: UserProfile | undefined;
+  _profile: UserProfile | undefined;
+  isAuthenticated: boolean = false;
 
   get keycloak() {
     if (!this._keycloak) {
@@ -27,12 +28,11 @@ export class KeycloakService {
   constructor() {}
 
   async init() {
-    console.log('authenticate the user...');
-
-    const authonticated = await this.keycloak?.init({
-      onLoad: 'login-required',
+    this.isAuthenticated = await this.keycloak?.init({
+      onLoad: 'check-sso',
     });
-    if (authonticated) {
+
+    if (this.isAuthenticated) {
       this._profile = (await this.keycloak?.loadUserInfo()) as UserProfile;
       this._profile.token = this.keycloak?.token;
     }
@@ -41,9 +41,14 @@ export class KeycloakService {
   login() {
     return this.keycloak?.login();
   }
+
+  accountManagment() {
+    return this.keycloak?.accountManagement();
+  }
+
   logout() {
     return this.keycloak?.logout({
-      redirectUri: 'https:localhost:4200',
+      redirectUri: 'https://localhost:4200',
     });
   }
 }

@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 
 import { KeycloakService } from '../../services/keycloak/keycloak.service';
+import { UserProfile } from '../../services/keycloak/user-profile';
 
 @Component({
   selector: 'app-login-status',
@@ -10,34 +11,33 @@ import { KeycloakService } from '../../services/keycloak/keycloak.service';
   styleUrl: './login-status.component.css',
 })
 export class LoginStatusComponent implements OnInit {
+
   isAuthenticated: boolean = false;
   userFullName: string = '';
-  storage: Storage = sessionStorage;
 
-  constructor(
-   private keycloakService: KeycloakService
-  ) {}
 
-  ngOnInit(): void {
+  constructor(private keycloakService: KeycloakService) {}
 
-      // await this.getUserDetails();
+  async ngOnInit(): Promise<void> {
+    this.isAuthenticated = this.keycloakService.isAuthenticated;
+    if (this.keycloakService.isAuthenticated) {
+      this.userFullName = this.keycloakService._profile?.name!;
     }
-  
-
-  // async getUserDetails() {
-  //   if (this.isAuthenticated) {
-   
-      
-  //     this.keycloakService.getUserDetails().then((res) => {
-  //       this.userFullName = res.firstName as string;
-  //       const theEmail = res.email as string;
-  //       this.storage.setItem('userEmail', JSON.stringify(theEmail));
-  //     });
-  //   }
-  // }
-
-  async logout() {
-    // Terminates the session with Okta and removes current tokens.
-    this.keycloakService.logout();
   }
+
+   login() {
+     this.keycloakService.login();
+    this.isAuthenticated = true;
+
+    this.userFullName = this.keycloakService._profile?.name!;
+  }
+
+   logout() {
+    this.keycloakService.logout();
+    this.isAuthenticated = false;
+    this.userFullName = '';
+  }
+  accountManagment() {
+    this.keycloakService.accountManagment();
+    }
 }
