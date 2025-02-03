@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {
   HTTP_INTERCEPTORS,
+  HttpClient,
   provideHttpClient,
   withFetch,
   withInterceptorsFromDi,
@@ -24,44 +25,19 @@ import { Router, RouterModule, Routes } from '@angular/router';
 import { CarDetailsComponent } from './components/car-details/car-details.component';
 import { RentCarComponent } from './components/rent-car/rent-car.component';
 
-// okta
-import {
-  OktaAuthModule,
-  OktaCallbackComponent,
-  OKTA_CONFIG,
-  OktaAuthGuard,
-} from '@okta/okta-angular';
-import { OktaAuth } from '@okta/okta-auth-js';
-import myAppConfig from './config/my-app-config';
-import { MembersPageComponent } from './components/members-page/members-page.component';
+
 import { ReservationHistoryComponent } from './components/reservation-history/reservation-history.component';
-import { AuthInterceptorService } from './services/auth-interceptor.service';
+
 import { KeycloakService } from './services/keycloak/keycloak.service';
+import { ManagerComponent } from './components/manager/manager.component';
+import { HttpTokenInterceptor } from './services/interceptor/http-token.interceptor';
 
-const oktaConfig = myAppConfig.oidc;
-const oktaAuth = new OktaAuth(oktaConfig);
-
-function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector) {
-  const router = injector.get(Router);
-  router.navigate(['/login']);
-}
 
 const routes: Routes = [
   {
     path: 'rent-history',
-    component: ReservationHistoryComponent,
-    canActivate: [OktaAuthGuard],
-    data: { onAuthRequired: sendToLoginPage },
+    component: ReservationHistoryComponent,   
   },
-  {
-    path: 'members',
-    component: MembersPageComponent,
-    canActivate: [OktaAuthGuard],
-    data: { onAuthRequired: sendToLoginPage },
-  },
-
-
-
   { path: 'rent/:id', component: RentCarComponent },
   { path: 'cars/:id', component: CarDetailsComponent },
   { path: 'search/:model', component: CarListComponent },
@@ -84,23 +60,23 @@ export function kcFactory(kcService: KeycloakService) {
     SearchComponent,
     LoginStatusComponent,
     CarDetailsComponent,
-    RentCarComponent,   
-    MembersPageComponent,
+    RentCarComponent,      
     ReservationHistoryComponent,
+    ManagerComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, { useHash: false }),
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    OktaAuthModule,
+
   ],
-  providers: [
-    { provide: OKTA_CONFIG, useValue: { oktaAuth } },
+  providers: [  
+    HttpClient,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptorService,
-      multi: true,
+      useClass: HttpTokenInterceptor,
+      multi: true
     },
     {
       provide: APP_INITIALIZER,

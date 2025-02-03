@@ -13,6 +13,7 @@ import { RentService } from '../../services/rent.service';
 import { Rent } from '../../common/rent';
 import { environment } from '../../../environments/environment.development';
 import { PaymentInfo } from '../../common/payment-info';
+import { KeycloakService } from '../../services/keycloak/keycloak.service';
 
 @Component({
   selector: 'app-rent-car',
@@ -33,13 +34,15 @@ export class RentCarComponent implements OnInit {
   numberOfDays: number;
 
   rentFormGroup: FormGroup;
+  theEmail: string | undefined;
 
   constructor(
     private route: ActivatedRoute,
     private carService: CarService,
     private formBuilder: FormBuilder,
     private rentService: RentService,
-    private router: Router
+    private router: Router,
+    private keycloakService: KeycloakService
   ) {}
 
   ngOnInit(): void {
@@ -50,7 +53,11 @@ export class RentCarComponent implements OnInit {
     this.setupStripePaymentForm();
 
     const formattedTodayDate = this.getTodayDate();
-    const theEmail = JSON.parse(this.storage.getItem('userEmail')!);
+    if (this.keycloakService.isAuthenticated) {
+      this.theEmail = this.keycloakService._profile?.email;
+    } else {
+      this.theEmail = '';
+    }
 
     this.rentFormGroup = this.formBuilder.group({
       reservation: this.formBuilder.group({
@@ -75,7 +82,7 @@ export class RentCarComponent implements OnInit {
           Validators.minLength(2),
           RentValidators.notOnlyWhitespace,
         ]),
-        email: new FormControl(theEmail, [
+        email: new FormControl(this.theEmail, [
           Validators.required,
           Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
         ]),
